@@ -1,4 +1,5 @@
 # Multiplayer Piano API Documentation
+work in progress; [edits welcome](https://github.com/ledlamp/mppdoc/edit/master/api.md)
 
 ## Table of Contents
 - [MPP.press(id, vol)                                    ](#mpppressid-vol)
