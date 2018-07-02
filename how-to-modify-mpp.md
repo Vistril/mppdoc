@@ -12,3 +12,5 @@ The old way of doing it was to put the script.js in Tampermonkey as a userscript
 5. Go back to Resource Override, click **Edit File** and paste the code in.
 
 That's it! Now you can modify your copy and it should override the original script.
+
+> You can use this method to modify other files, such as Client.js
