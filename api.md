@@ -98,14 +98,6 @@
   - [MPP.client.startNote(note, [vel])                   ](#mppclientstartnotenote-vel)
   - [MPP.client.stop()                                   ](#mppclientstop)
   - [MPP.client.stopNote(note)                           ](#mppclientstopnotenote)
-- [MPP.chat                                              ](#mppchat)
-  - [MPP.chat.blur()                                     ](#mppchatblur)
-  - [MPP.chat.clear()                                    ](#mppchatclear)
-  - [MPP.chat.hide()                                     ](#mppchathide)
-  - [MPP.chat.receive(msg)                               ](#mppchatreceivemsg)
-  - [MPP.chat.scrollToBottom()                           ](#mppchatscrolltobottom)
-  - [MPP.chat.send(message)                              ](#mppchatsendmessage)
-  - [MPP.chat.show()                                     ](#mppchatshow)
   - [event: "a"                                          ](#mppclient-event-a)
   - [event: "bye"                                        ](#mppclient-event-bye)
   - [event: "c"                                          ](#mppclient-event-c)
@@ -125,6 +117,14 @@
   - [event: "participant update"                         ](#mppclient-event-participant-update)
   - [event: "status"                                     ](#mppclient-event-status)
   - [event: "t"                                          ](#mppclient-event-t)
+- [MPP.chat                                              ](#mppchat)
+  - [MPP.chat.blur()                                     ](#mppchatblur)
+  - [MPP.chat.clear()                                    ](#mppchatclear)
+  - [MPP.chat.hide()                                     ](#mppchathide)
+  - [MPP.chat.receive(msg)                               ](#mppchatreceivemsg)
+  - [MPP.chat.scrollToBottom()                           ](#mppchatscrolltobottom)
+  - [MPP.chat.send(message)                              ](#mppchatsendmessage)
+  - [MPP.chat.show()                                     ](#mppchatshow)
 - [MPP.noteQuota                                         ](#mppnotequota)
   - [MPP.noteQuota.allowance                             ](#mppnotequotaallowance)
   - [MPP.noteQuota.cb(points)                            ](#mppnotequotacbpoints)
@@ -412,33 +412,137 @@ MPP.client.emit("meow", "🅱istril ghey");
 
 
 ### MPP.client.participantUpdate(update)
-### MPP.client.preventsPlaying
+- `update` <[Object]> Updated participant
+
+Used internally to update participants in MPP.client.ppl.
+
+
+### MPP.client.preventsPlaying()
+- returns: <[Boolean]> If `true`, the client is not permitted to play (such as in "Only owner can play" rooms).
+
+
 ### MPP.client.receiveServerTime(time, echo)
+- `time` <[Number]> Server's UNIX time
+- `echo` <[Number]> idk what this is but it doesn't appear to be used
+
+Used internally to configure MPP.client.serverTimeOffset based on the server's time broadcasted via "t" and "hi" events.
+
+
 ### MPP.client.send(raw)
+- `raw` <[String]> Message
+
+Sends a raw string through the WebSocket.
+
+
 ### MPP.client.sendArray(arr)
+- `arr` <[Array]> Array of messages to send to the server
+
+Serializes and sends the array of messages to the server. Each message is an Object whose "m" property is the event name it represents.
+
+
 ### MPP.client.setChannel(id, [set])
+- `id` <String> Name of the channel (room) to join
+- `set` <Object> Channel settings, if creating a new room
+
+Sets MPP.client.desiredChannelId and MPP.client.desiredChannelSettings to `id` and `set`, respectively, and sends a "ch" to the server if the client is connected.
+
+
 ### MPP.client.setParticipants(ppl)
+- `ppl` <[Object]>
+
+Sets MPP.client.ppl by removing those who aren't in `ppl` and leaving those who are; then updating each one.
+
+
 ### MPP.client.start()
+
+Enables the client to connect and connects it.
+
+
 ### MPP.client.startNote(note, [vel])
+- `note` <[String]> Name of the note, i.e. `c7`
+- `vel`, <[Number]> Velocity of the note
+
+Sends a note press to the server.
+
+
 ### MPP.client.stop()
+
+Sets MPP.client.canConnect to false and closes the WebSocket.
+
+
 ### MPP.client.stopNote(note)
-### MPP.chat
-### MPP.chat.blur()
-### MPP.chat.clear()
-### MPP.chat.hide()
-### MPP.chat.receive(msg)
-### MPP.chat.scrollToBottom()
-### MPP.chat.send(message)
-### MPP.chat.show()
+- `note` <[String]> Name of the note
+
+Sends a note release to the server.
+
+
 ### MPP.client event: "a"
+- `msg` <[Object]> A chat message
+  - `msg.a` <[String]> The message content
+  - `msg.t` <[Number]> Time the message was received by the server (?)
+  - `msg.p` <[Object]> The participant who sent the message
+    `msg.p_id` <[String]> User id of the participant
+    `msg.p.name` <[String]> Name of the participant
+    `msg.p.color` <[String]> The participant's color, in hex
+    `msg.p.id` <[String]> The participant's id
+    
+Note that when sending a chat message, you create a msg with your message content in `message`.
+
+
 ### MPP.client event: "bye"
+- `msg` <[Object]>
+  - `msg.p` <[String]> Participant Id
+
+Emitted when a participant leaves; used to remove participants from MPP.client.ppl.
+
+
 ### MPP.client event: "c"
+- `msg` <[Object]>
+  - `msg.c` <[Array]> Array of chat messages (like those in "a")
+
+Used to load the chat history when you join a channel.
+
+
 ### MPP.client event: "ch"
+- `msg` <[Object]>
+  - `msg.ch` <[Object]>
+    - `msg.ch._id` <[String]> Name of the channel
+    - `msg.ch.settings` <[Object]> Settings of the channel
+    - `msg.ch.count` <[Number]> Number of participants in the channel
+  - `msg.p` <[String]> Your participant id
+  - `msg.ppl` <[Array]> Array of all the participants in the channel.
+  
+This event is emitted whenever the channel is changed.
+
+
 ### MPP.client event: "connect"
+
+Emmitted when the WebSocket opens.
+
+
 ### MPP.client event: "count"
+- <[Number]> Number of participants
+
+This is emitted every time the number of participants changes.
+
+
 ### MPP.client event: "disconnect"
+
+Emitted when the WebSocket closes.
+
 ### MPP.client event: "hi"
+- `msg` <[Object]>
+  - `msg.motd` <[String]> The message of the day.
+  - `msg.t` <[Number]> The server's UNIX time.
+  - `msg.u` <[Object]> The user that the client will be known as.
+  - `msg.v` <[String]> MPP Version
+
+Emitted by the server once the connection is successful and the client is ready to send messages.
+
+
 ### MPP.client event: "ls"
+
+
 ### MPP.client event: "m"
 ### MPP.client event: "n"
 ### MPP.client event: "notification"
@@ -449,6 +553,14 @@ MPP.client.emit("meow", "🅱istril ghey");
 ### MPP.client event: "participant update"
 ### MPP.client event: "status"
 ### MPP.client event: "t"
+### MPP.chat
+### MPP.chat.blur()
+### MPP.chat.clear()
+### MPP.chat.hide()
+### MPP.chat.receive(msg)
+### MPP.chat.scrollToBottom()
+### MPP.chat.send(message)
+### MPP.chat.show()
 ### MPP.noteQuota
 ### MPP.noteQuota.allowance
 ### MPP.noteQuota.cb(points)
