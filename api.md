@@ -153,14 +153,14 @@
 
 
 ### MPP.press(id, vol)
-- `id` <String> the id of the key, such as `a1`
-- `vol` <Number> velocity of the key press; ranges from 0-1
+- `id` <[String]> the id of the key, such as `a1`
+- `vol` <[Number]> velocity of the key press; ranges from 0-1
 
 Presses a key as the user, consuming note quota and sending it to other participants.
 
 
 ### MPP.release(id)
-- `id` <String> the id of the key, such as `a1`
+- `id` <[String]> the id of the key, such as `a1`
 
 Releases a key pressed by MPP.press
 
@@ -227,98 +227,98 @@ Releases a key pressed by MPP.press
 
 
 ### MPP.client.canConnect
-- type: <Boolean>
+- type: <[Boolean]>
 
 The client will not connect if this is set to `false`.
 
 
 ### MPP.client.channel
-- type: <Object>
+- type: <[Object]>
   
 Represents the channel (room) the client is in.
 
 
 ### MPP.client.connectionAttempts
-- type: <Number>
+- type: <[Number]>
   
 Number of times the client tried to reconnect after a connection failure.
 
 
 ### MPP.client.connectionTime
-- type: <Number>
+- type: <[Number]>
 
 The time the current connection was made, in UNIX time. This will be undefined if the client is not connected.
 
 
 ### MPP.client.desiredChannelId
-- type: <String>
+- type: <[String]>
  
 The name of the channel (room) the client wants to be connected to.
 
 
 ### MPP.client.desiredChannelSettings
-- type: <Object>
+- type: <[Object]>
   
 Like MPP.client.desiredChannelId, the settings for the channel (room) the client wants to connect to, if it is going to be a new channel.
 
 
 ### MPP.client.noteBuffer
-- type: <Array>
+- type: <[Array]>
   
 Buffer of note messages to be sent to the server. This buffer is sent to the server & cleared every 200 ms by MPP.client.noteFlushInterval
 .
 
 
 ### MPP.client.noteBufferTime
-- type: <Number>
+- type: <[Number]>
   
 This will be the UNIX time of the first note message in the note buffer. It is used to calculate the difference in ms between that first note and each note added to the buffer.
 
 
 ### MPP.client.noteFlushInterval
-- type: <Number>
+- type: <[Number]>
   
 ID of the interval used to dispatch the note buffer. Used with clearInterval() when the client is disconnected.
 
 
 ### MPP.client.participantId
-- type: <String>
+- type: <[String]>
   
 The client's participant ID.
 
 
 ### MPP.client.pingInterval
-- type: <Number>
+- type: <[Number]>
 
 ID of the interval used to send a ping message to the server.
 
 
 ### MPP.client.ppl
-- type: <Object>
+- type: <[Object]>
   
 This contains all participant objects that the client knows, mapped by their participant ID.
 
 
 ### MPP.client.serverTimeOffset
-- type: <Number>
+- type: <[Number]>
 
 Used to correct any offset of the server's time versus the client's time. This ensures notes are always played at their timing target (1 second after it was really played). It's also used to ensure accuracy of crown pick-up timing.
 
 
 ### MPP.client.uri
-- type: <String>
+- type: <[String]>
   
 Websocket server URL for the client to connect to.
 
 
 ### MPP.client.user
-- type: <Object>
+- type: <[Object]>
 
 Represents the client's user. This is set by the server via the "u" event.
 
 
 ### MPP.client.ws
-- type: <WebSocket>
+- type: <[WebSocket]>
 
 The client's current WebSocket instance. Note that this is re-created every time the client connects, because WebSockets are basically one-time-use connections.
 
@@ -334,75 +334,75 @@ Connects the client if possible, that is, if MPP.client.canConnect & MPP.client.
 
 
 ### MPP.client.countParticipants()
-- returns: <Number> the number of participants online, or the number of objects in MPP.client.ppl
+- returns: <[Number]> the number of participants online, or the number of objects in MPP.client.ppl.
 
 
 ### MPP.client.emit(evtn, [args…])
-- `evtn` <String> name of the event
-- `args…` <any> arguments to pass to the event listeners
+- `evtn` <[String]> name of the event.
+- `args…` <[any]> arguments to pass to the event listeners.
 
 Emits an event, which will call all listeners on the given event.
 
 
 ### MPP.client.findParticipantById(id)
-- `id` <String> ID of the participant to find
-- returns: <Object> The participant
+- `id` <[String]> ID of the participant to find
+- returns: <[Object]> The participant
 
 
 ### MPP.client.getChannelSetting(key)
-- `key` <String>
-- returns: <Any>
+- `key` <[String]>
+- returns: <[Any]>
 
 Returns a setting's value whose name is the given key (i.e. `crownsolo`). Depending on whether the client is connected, this value will come from MPP.client.channel.settings or MPP.client.offlineChannelSettings.
 
 
 ### MPP.client.getOwnParticipant()
-- returns: <Object> The client's own participant object
+- returns: <[Object]> The client's own participant object.
 
 
 ### MPP.client.isConnected()
-- returns: <Boolean> Whether the client is connected.
+- returns: <[Boolean]> Whether the client is connected.
 
 
 ### MPP.client.isConnecting()
-- returns: <Boolean> Whether the client is in the process of connecting.
+- returns: <[Boolean]> Whether the client is in the process of connecting.
 
 
 ### MPP.client.isOwner()
-- returns: <Boolean> Whether the client is the owner of its channel.
+- returns: <[Boolean]> Whether the client is the owner of its channel.
 
 
 ### MPP.client.isSupported()
-- returns: <Boolean> Whether the client is supported on the platform.
+- returns: <[Boolean]> Whether the client is supported on the platform.
   
 This is true if `WebSocket` exists as a Function.
 
 
 ### MPP.client.off(evnt, fn)
-- `evnt` <String> Event name
-- `fn` <Function> The listener function to remove
+- `evnt` <[String]> Event name.
+- `fn` <[Function]> The listener function to remove.
   
 Removes an event listener function.
 
 
 ### MPP.client.offlineChannelSettings
-- type: <Object>
+- type: <[Object]>
   
 The settings to use for the channel when the client is not connected.
 
 
 ### MPP.client.offlineParticipant
-- type: <Object>
+- type: <[Object]>
   
 The participant to use when the client is not connected.
 
 
 ### MPP.client.on(evtn, fn)
-- `evnt` <String> Event name
-- `fn` <Function> Event listener functon
+- `evnt` <[String]> Event name
+- `fn` <[Function]> Event listener functon
   
 Registers the function as an event listener for the given event. Example:
-```
+```js
 MPP.client.on("meow", function(message){
     console.log("A cat has meowed the following message:" + message);
 });
