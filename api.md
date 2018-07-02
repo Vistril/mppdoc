@@ -441,8 +441,8 @@ Serializes and sends the array of messages to the server. Each message is an Obj
 
 
 ### MPP.client.setChannel(id, [set])
-- `id` <String> Name of the channel (room) to join
-- `set` <Object> Channel settings, if creating a new room
+- `id` <[String]> Name of the channel (room) to join
+- `set` <[Object]> Channel settings, if creating a new room
 
 Sets MPP.client.desiredChannelId and MPP.client.desiredChannelSettings to `id` and `set`, respectively, and sends a "ch" to the server if the client is connected.
 
