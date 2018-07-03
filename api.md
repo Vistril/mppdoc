@@ -314,8 +314,11 @@ Websocket server URL for the client to connect to.
 
 ### MPP.client.user
 - type: <[Object]>
+  - `_id` <[String]> User id
+  - `name` <[String]> User name
+  - `color` <[String]> User color in hex
 
-Represents the client's user. This is set by the server via the "u" event.
+Represents the client's user. Note that this property is defunct because it is only set once, via the "hi" event, and does not update. It is also not used for anything internally. Use MPP.client.getOwnParticipant() instead.
 
 
 ### MPP.client.ws
