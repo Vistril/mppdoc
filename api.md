@@ -516,7 +516,7 @@ Used to load the chat history when you join a channel.
   - `msg.p` <[String]> Your participant id
   - `msg.ppl` <[Array]> Array of all the participants in the channel.
   
-This event is emitted whenever the channel is changed.
+This event is emitted whenever the channel changes in some way, such as when a person joins or leaves, when the channel's settings or ownership changes, and of course when the client joins the channel.
 
 
 ### MPP.client event: "connect"
@@ -545,14 +545,65 @@ Emitted by the server once the connection is successful and the client is ready 
 
 
 ### MPP.client event: "ls"
+- `msg` <[Object]>
+  - `msg.c` <[Boolean]> Whether this is a full list or an update
+  - `msg.u` <[Array]> Array of channels to show in the list
+  
+This event populates the room list. When you open the room list, the client sends a "+ls" message to the server, and the server starts sending this event. The first message contains the entire list, and `msg.c` is true. Subsequent messages include incremental updates to the list, and `msg.c` is false. When the list is closed, the client sends a "-ls" message, and the server stops sending "ls" messages back.
 
 
 ### MPP.client event: "m"
+- `msg` <[Object]>
+  - `msg.id` <[String]> Participant id
+  - `msg.x` <[Number]> X coordinate
+  - `msg.y` <[Number]> Y coordinate
+  
+A mouse move event. Updates the participant's cursor position.
+
+
 ### MPP.client event: "n"
+- `msg` <[Object]>
+  - `msg.n` <[Array]<[Object]>> Buffer of note objects
+  - `msg.p` <[Number]> Participant ID of who played the notes
+  - `msg.t` <[Number]> UNIX timestamp of the note buffer
+  
+A note event. This is what all the piano notes go through.
+
+
 ### MPP.client event: "notification"
+- `msg` <[Object]>
+  - `msg.id` <[String]> ID of the notification
+  - `msg.title` <[String]> Title of the notification
+  - `msg.text` <[String]> Body text of the notification
+  - `msg.html` <[String|HTMLElement]> HTML body of the notification
+  - `msg.target` <[String]> The DOM element to attach the notification to, in jQuery syntax (defaults to `#piano`)
+  - `msg.duration` <[Number]> Duration in millisections that the notification will show (defaults to `30000`)
+  - `msg.class` <[String]> CSS class of the notification (defaults to `classic`)
+  
+This event is used by the server to display a notification on the client. You can also use it to display a notification by emitting it.
+
 ### MPP.client event: "nq"
+- `msg` <[Object]>
+  - `msg.allowance` <[Number]> 
+  - `msg.histLen` <[Number]> 
+  - `msg.max` <[Number]> 
+
+Updates your NoteQuota settings.
+
+
 ### MPP.client event: "p"
+- `msg` <[Object]>
+  - `msg._id` <[String]> Participant's user's id
+  - `msg.id` <[String]> Participant id
+  - `msg.name` <[String]> Participant name
+  
+Emitted whenever a participant is added or updated, such as when they set their name.
+
+
 ### MPP.client event: "participant added"
+- `msg` <[Object]>
+
+
 ### MPP.client event: "participant removed"
 ### MPP.client event: "participant update"
 ### MPP.client event: "status"
