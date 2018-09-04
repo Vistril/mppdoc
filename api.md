@@ -609,7 +609,9 @@ Emitted whenever a participant is added or updated, such as when they set their 
 ### MPP.client event: "status"
 ### MPP.client event: "t"
 ### MPP.chat
+
 - type: <[Object]>
+
 ### MPP.chat.blur()
 
 Blurs chat.
@@ -624,8 +626,8 @@ Hides chat, used when room owner disables chat.
 
 ### MPP.chat.receive(msg)
 
+- `msg` <[Object]>
 The .receive function is what the server uses to display messages on the client.
-- returns: <[Object]>
 
 ### MPP.chat.scrollToBottom()
 
@@ -652,7 +654,7 @@ Parameters of current NoteQuota. May change depending on what type of room clien
 ### MPP.noteQuota.histLen
 
 - type: <[Number]> 
-Lamp, please add details
+Length of the .noteQuota.history array
 
 ### MPP.noteQuota.history
 
