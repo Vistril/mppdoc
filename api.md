@@ -411,7 +411,7 @@ MPP.client.on("meow", function(message){
     console.log("A cat has meowed the following message:" + message);
 });
 
-MPP.client.emit("meow", "🅱istril ghey");
+MPP.client.emit("meow", "🅱istril ghey"); //no u
 ```
 
 
@@ -602,28 +602,78 @@ Emitted whenever a participant is added or updated, such as when they set their 
 
 ### MPP.client event: "participant added"
 - `msg` <[Object]>
-
-
 ### MPP.client event: "participant removed"
+- `msg` <[Object]>
 ### MPP.client event: "participant update"
+- `msg` <[Object]>
 ### MPP.client event: "status"
 ### MPP.client event: "t"
 ### MPP.chat
+- type: <[Object]>
 ### MPP.chat.blur()
+
+Blurs chat.
+
 ### MPP.chat.clear()
+
+Clears chat, useful to avoid spam.
+
 ### MPP.chat.hide()
+
+Hides chat, used when room owner disables chat.
+
 ### MPP.chat.receive(msg)
+
+The .receive function is what the server uses to display messages on the client.
+- returns: <[Object]>
+
 ### MPP.chat.scrollToBottom()
+
+Scrolls to the bottom of the chat, if you had scrolled up too far.
+
 ### MPP.chat.send(message)
+
+Sends message to the server and then to other clients.
+
 ### MPP.chat.show()
+
+Shows chat if chat was already hidden.
+
 ### MPP.noteQuota
+
+- type: <[Object]>(http://www.multiplayerpiano.com/NoteQuota.js)
+
 ### MPP.noteQuota.allowance
+
+- type: <[Number]> 
+Parameters of current NoteQuota. May change depending on what type of room client is in.
+
 ### MPP.noteQuota.cb(points)
 ### MPP.noteQuota.histLen
+
+- type: <[Number]> 
+Lamp, please add details
+
 ### MPP.noteQuota.history
+
+- type: <[Array]>
+Array consisting of previous max NoteQuota integers of rooms client has visited
+
 ### MPP.noteQuota.max
+
+- type: <[Number]>
+Returns an integer of the maximum NoteQuota parameter for the current room.
+
 ### MPP.noteQuota.points
+
+- type: <[Number]>
+Returns the integer of the current NoteQuota parameter for the current room.
+
 ### MPP.noteQuota.getParams()
+
+- returns: <[Object]>
+Gets current NoteQuota parameters for the room. (Allowance, Max, histLen)
+
 ### MPP.noteQuota.resetPoints()
 ### MPP.noteQuota.setParams(params)
 ### MPP.noteQuota.spend(needed)
